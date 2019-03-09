@@ -1,1 +1,25 @@
-{"orders": []}
+{
+    "orders": [
+        {
+            "item": "Comics",
+            "quantity": 1,
+            "price": 50,
+            "buyer": "Buyer_2",
+            "date": "10.03.2019"
+        },
+        {
+            "item": "Book",
+            "quantity": 2,
+            "price": 100,
+            "buyer": "Buyer_1",
+            "date": "10.03.2019"
+        },
+        {
+            "item": "Book",
+            "quantity": 2,
+            "price": 100,
+            "buyer": "Buyer_1",
+            "date": "10.03.2019"
+        }
+    ]
+}
