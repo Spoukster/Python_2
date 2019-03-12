@@ -14,13 +14,13 @@ request_string = json.dumps(
     }
 )
 
-socket.send(data.encode(''))
+socket.send(request_string.encode('utf-8'))
 
 while True:
     response = socket.recv(1024)
 
     if response:
-        print(response.decode())
+        print(response.decode('utf-8'))
         socket.close()
 
         break
