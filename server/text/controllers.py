@@ -1,10 +1,23 @@
-def get_upper_text(data):
-    return data.upper()
+from server.protocol import make_response, make_400
 
 
-def get_lower_text(data):
-    return data.lower()
+def get_upper_text(request):
+    data = request.get('data')
+    if not data:
+        return make_400(request)
+    return make_response(
+        request,
+        200,
+        data.upper()
+    )
 
 
-def get_title_text(data):
-    return data.title()
+def get_lower_text(request):
+    data = request.get('data')
+    if not data:
+        return make_400(request)
+    return make_response(
+        request,
+        200,
+        data.lower()
+    )
