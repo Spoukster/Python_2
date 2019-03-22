@@ -1,6 +1,6 @@
 import pytest
 from datetime import datetime
-from server.text.controllers import get_upper_text
+from text.controllers import get_upper_text
 
 
 @pytest.fixture
