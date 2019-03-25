@@ -1,33 +1,41 @@
 import socket
 import json
 import hashlib
+import argparse
 from datetime import datetime
 
-socket = socket.socket()
-socket.connect(('localhost', 8881))
+parser = argparse.ArgumentParser()
+parser.add_argument('-m', '--mode', type=str, default='w')
+cmd_args = parser.parse_args()
 
-action = input('Enter action: ')
-data = input('Enter data: ')
+try:
+    sock = socket.socket()
+    sock.connect(('localhost', 8881))
 
-hash_obj = hashlib.sha1()
-hash_obj.update(b'secret_key')
+    if cmd_args.mode == 'w':
+        while True:
+            action = input('Enter action: ')
+            data = input('Enter data: ')
 
-request_string = json.dumps(
-    {
-        'action': action,
-        'time': datetime.now().timestamp(),
-        'data': data,
-        'user': hash_obj.hexdigest()
-    }
-)
+            hash_obj = hashlib.sha1()
+            hash_obj.update(b'secret_key')
 
-socket.send(request_string.encode('utf-8'))
+            request_string = json.dumps(
+                {
+                    'action': action,
+                    'time': datetime.now().timestamp(),
+                    'data': data,
+                    'user': hash_obj.hexdigest()
+                }
+            )
 
-while True:
-    response = socket.recv(1024)
+    else:
+        while True:
+            response = sock.recv(1024)
 
-    if response:
-        print(response.decode('utf-8'))
-        socket.close()
+            if response:
+                print(response.decode('utf-8'))
+                break
 
-        break
+except KeyboardInterrupt:
+    sock.close()
