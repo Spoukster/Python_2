@@ -2,6 +2,8 @@ import sys
 import json
 import socket
 import argparse
+import time
+
 
 
 def create_args_parser():
@@ -16,7 +18,7 @@ parser = create_args_parser()
 args = parser.parse_args(sys.argv[1:])
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.bind((args.a, args.p))
+sock.bind((args.a, int(args.p)))
 sock.listen(5)
 
 while True:
@@ -25,6 +27,19 @@ while True:
     data = client.recv(1024)
     request = json.loads(data.decode('utf-8'))
 
+    client_action = request.get('action')
 
-    client.send()
+    if client_action == 'presence':
+        time_now = int(time.time())
+        response_string = json.dumps(
+            {
+                'response': '200',
+                'time': time_now,
+                'alert': 'Ok'
+            }
+        )
+    else:
+        response_string = 'Action not support'
+
+    client.send(response_string.encode('utf-8'))
     client.close()
