@@ -1,5 +1,6 @@
 import socket
 import json
+from datetime import datetime
 
 socket = socket.socket()
 socket.connect(('localhost', 8000))
@@ -10,6 +11,7 @@ data = input('Enter data: ')
 request_string = json.dumps(
     {
         'action': action,
+        'time': datetime.now().timestamp(),
         'data': data
     }
 )
