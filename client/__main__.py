@@ -1,18 +1,23 @@
 import socket
 import json
+import hashlib
 from datetime import datetime
 
 socket = socket.socket()
-socket.connect(('localhost', 8000))
+socket.connect(('localhost', 8881))
 
 action = input('Enter action: ')
 data = input('Enter data: ')
+
+hash_obj = hashlib.sha1()
+hash_obj.update(b'secret_key')
 
 request_string = json.dumps(
     {
         'action': action,
         'time': datetime.now().timestamp(),
-        'data': data
+        'data': data,
+        'user': hash_obj.hexdigest()
     }
 )
 

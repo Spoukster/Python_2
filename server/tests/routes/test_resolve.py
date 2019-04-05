@@ -1,5 +1,5 @@
 import pytest
-from server.routes import resolve
+from routes import resolve
 
 
 @pytest.fixture

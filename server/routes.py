@@ -2,7 +2,7 @@ import os
 from functools import reduce
 from importlib import __import__
 
-from .settings import INSTALLED_MODULES
+from settings import INSTALLED_MODULES
 
 
 # def get_server_routes():
