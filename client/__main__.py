@@ -2,6 +2,7 @@ import socket
 import json
 import hashlib
 import argparse
+import select
 from datetime import datetime
 
 parser = argparse.ArgumentParser()
@@ -29,8 +30,13 @@ try:
                 }
             )
 
+            sock.send(request_string.encode('utf-8'))
+
     else:
         while True:
+
+            rlist, wlist, xlist = select.select([], [sock], [], 0)
+
             response = sock.recv(1024)
 
             if response:
