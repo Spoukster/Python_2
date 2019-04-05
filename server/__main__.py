@@ -3,15 +3,13 @@ from datetime import datetime
 import json
 
 sock = socket.socket()
-sock.bind(('', '8000'))
+sock.bind(('', 8000))
 sock.listen(5)
 
 while True:
     client, address = sock.accept()
     print(f'Client detected {address}')
     data = client.recv(1024)
-    string = data.decode('utf-8')
-
     request = json.loads(
         data.decode('utf-8')
     )
