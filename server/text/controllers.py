@@ -1,8 +1,10 @@
 from protocol import make_response, make_400
 from authentication import login_required, LoginRequired
+from customlogging import stack_logging, StackLogging
 
 
 @login_required
+@stack_logging('Function %(func_name)s was called.')
 def get_upper_text(request):
     data = request.get('data')
     if not data:
@@ -15,6 +17,7 @@ def get_upper_text(request):
 
 
 @LoginRequired()
+@StackLogging('Request body: %(request_data)s.')
 def get_lower_text(request):
     data = request.get('data')
     if not data:
